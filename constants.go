@@ -1,6 +1,6 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * Vencord Installer, a cross platform gui/cli app for installing Vencord
+ * Discord Installer, a cross platform gui/cli app for installing Discord
  * Copyright (c) 2023 Vendicated and Vencord contributors
  */
 
@@ -8,15 +8,15 @@ package main
 
 import (
 	"image/color"
-	"vencordinstaller/buildinfo"
+	"discordinstaller/buildinfo"
 )
 
-const ReleaseUrl = "https://api.github.com/repos/Vendicated/Vencord/releases/latest"
-const ReleaseUrlFallback = "https://vencord.dev/releases/vencord"
-const InstallerReleaseUrl = "https://api.github.com/repos/Vencord/Installer/releases/latest"
-const InstallerReleaseUrlFallback = "https://vencord.dev/releases/installer"
+const ReleaseUrl = "https://api.github.com/repos/Arkromin/Discord/releases/tags/devbuild"
+const ReleaseUrlFallback = "https://api.github.com/repos/Arkromin/Discord/releases/tags/devbuild"
+const InstallerReleaseUrl = "https://api.github.com/repos/Arkromin/Installer/releases/latest"
+const InstallerReleaseUrlFallback = "https://api.github.com/repos/Arkromin/Installer/releases/latest"
 
-var UserAgent = "VencordInstaller/" + buildinfo.InstallerGitHash + " (https://github.com/Vencord/Installer)"
+var UserAgent = "DiscordInstaller/" + buildinfo.InstallerGitHash + " (https://github.com/Arkromin/Installer)"
 
 var (
 	DiscordGreen        = color.RGBA{0, 133, 69, 0xff}

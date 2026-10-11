@@ -13,7 +13,7 @@ GUI 		?= 0
 DMG 		?= 0
 WAYLAND 	?= 0
 
-LDFLAGS 	?= -s -w -X 'vencordinstaller/buildinfo.InstallerGitHash=$(HASH)' -X 'vencordinstaller/buildinfo.InstallerTag=$(VERSION)'
+LDFLAGS 	?= -s -w -X 'discordinstaller/buildinfo.InstallerGitHash=$(HASH)' -X 'discordinstaller/buildinfo.InstallerTag=$(VERSION)'
 TAGS    	?= static
 CGO 		:= 0
 POSTFIX 	:=
@@ -67,34 +67,34 @@ ifeq ($(ARCH),universal)
 	rm build/installer-amd64 build/installer-arm64
 endif # ARCH
 ifeq ($(GUI),1)
-	cp -R macos/VencordInstaller.app build/VencordInstaller.app
-	/usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString $(VERSION)" build/VencordInstaller.app/Contents/Info.plist
-	/usr/libexec/PlistBuddy -c "Set :CFBundleVersion $(HASH)" build/VencordInstaller.app/Contents/Info.plist
+	cp -R macos/DiscordInstaller.app build/DiscordInstaller.app
+	/usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString $(VERSION)" build/DiscordInstaller.app/Contents/Info.plist
+	/usr/libexec/PlistBuddy -c "Set :CFBundleVersion $(HASH)" build/DiscordInstaller.app/Contents/Info.plist
 ifeq ($(ARCH),universal)
-	mv build/installer-universal build/VencordInstaller.app/Contents/MacOS/VencordInstaller
+	mv build/installer-universal build/DiscordInstaller.app/Contents/MacOS/DiscordInstaller
 else
-	mv build/installer-$(ARCH) build/VencordInstaller.app/Contents/MacOS/VencordInstaller
+	mv build/installer-$(ARCH) build/DiscordInstaller.app/Contents/MacOS/DiscordInstaller
 endif # ARCH
-	codesign --deep --force --options runtime --sign "$(IDENTITY)" build/VencordInstaller.app
+	codesign --deep --force --options runtime --sign "$(IDENTITY)" build/DiscordInstaller.app
 ifeq ($(DMG),1)
 ifeq ($(shell command -v create-dmg 2>/dev/null),)
 	$(error create-dmg is not installed)
 endif
 	create-dmg \
-		--volname "Vencord Installer" \
+		--volname "Discord Installer" \
 		--volicon macos/dmg.icns \
 		--background "macos/background.png" \
 		--window-pos 200 120 \
 		--window-size 510 340 \
 		--icon-size 100 \
-		--icon VencordInstaller.app 160 155 \
-		--hide-extension VencordInstaller.app \
+		--icon DiscordInstaller.app 160 155 \
+		--hide-extension DiscordInstaller.app \
 		--app-drop-link 350 155 \
-		build/VencordInstaller.dmg \
-		build/VencordInstaller.app
+		build/DiscordInstaller.dmg \
+		build/DiscordInstaller.app
 endif # DMG
 else # GUI
-	mv build/installer-$(ARCH) build/VencordInstallerCli-$(PLATFORM)
+	mv build/installer-$(ARCH) build/DiscordInstallerCli-$(PLATFORM)
 endif # GUI
 
 else ifeq ($(PLATFORM),windows) # PLATFORM
@@ -105,15 +105,15 @@ else ifeq ($(PLATFORM),windows) # PLATFORM
 	CGO_ENABLED=$(CGO) GOOS=$(PLATFORM) GOARCH=$(ARCH) \
 		go build -v -tags "$(TAGS)" \
 		-ldflags "$(LDFLAGS)" \
-		-o build/VencordInstaller$(POSTFIX).exe
+		-o build/DiscordInstaller$(POSTFIX).exe
 
 else # PLATFORM
 	CGO_ENABLED=$(CGO) GOOS=$(PLATFORM) GOARCH=$(ARCH) go build \
 		-v \
 		-tags "$(TAGS)" \
 		-ldflags "$(LDFLAGS)" \
-		-o build/VencordInstaller$(POSTFIX)-$(PLATFORM)
-	chmod +x build/VencordInstaller$(POSTFIX)-$(PLATFORM)
+		-o build/DiscordInstaller$(POSTFIX)-$(PLATFORM)
+	chmod +x build/DiscordInstaller$(POSTFIX)-$(PLATFORM)
 endif
 
 clean:

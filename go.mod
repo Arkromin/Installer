@@ -1,4 +1,4 @@
-module vencordinstaller
+module discordinstaller
 
 go 1.20
 
