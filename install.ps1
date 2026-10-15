@@ -1,4 +1,4 @@
-$link = "https://github.com/Discord/Installer/releases/latest/download/DiscordInstallerCli.exe"
+$link = "$link = "https://github.com/Arkromin/Installer/releases/latest/download/DiscordInstallerCli.exe""
 
 $outfile = "$env:TEMP\DiscordInstallerCli.exe"
 
